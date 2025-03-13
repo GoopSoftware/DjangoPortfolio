@@ -42,7 +42,7 @@ class Student(models.Model):
     name = models.CharField(max_length=200)
     email = models.EmailField("MSU Denver Email", max_length=200)
     Major = models.CharField(max_length=200, choices=MAJOR)
-    portfolio = models.ForeignKey(Portfolio, on_delete=models.CASCADE)
+    portfolio = models.ForeignKey(Portfolio, on_delete=models.CASCADE, default=1)
 
     # Fix the capital on Major next migration
 
