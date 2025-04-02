@@ -23,7 +23,10 @@ class Project(models.Model):
 
     title = models.CharField(max_length=200)
     description = models.TextField()
-    portfolio = models.ForeignKey(Portfolio, on_delete=models.CASCADE, default=None)
+    portfolio = models.ForeignKey(Portfolio,
+                                  on_delete=models.CASCADE,
+                                  default=1,
+                                  related_name='projects')
 
     def __str__(self):
         return self.title
@@ -42,7 +45,7 @@ class Student(models.Model):
     name = models.CharField(max_length=200)
     email = models.EmailField("MSU Denver Email", max_length=200)
     Major = models.CharField(max_length=200, choices=MAJOR)
-    portfolio = models.ForeignKey(Portfolio, on_delete=models.CASCADE, default=1)
+    portfolio = models.OneToOneField(Portfolio, on_delete=models.CASCADE)
 
     # Fix the capital on Major next migration
 
