@@ -1,54 +1,31 @@
-<!-- inherit from base.html-->
 {% extends "portfolio_app/base_template.html" %}
 {% load static %}
 
 {% block title %}Computer Science Portfolios{% endblock %}
-<!-- Replace block content in base_template.html -->
 {% block content %}
 
 <div class="container text-center">
-    <div class="d-flex justify-content-center">
-        <div class="row">
-            <div class="col-auto">
-                <div class="card" style="width: 18rem;">
-                    <img class="card-img-top" src="{% static 'images/PortfolioImage1.png' %}" alt="Card image cap">
-                    <div class="card-body">
-                        <h3 class="card-title">Student Name</h3>
-                        <h6>Portfolio Title</h6>
-                        <p class="card-text">Text for portfolio Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-                        <a href="#" class="btn btn-primary">Link to portfolio</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-auto">
-                <div class="card" style="width: 18rem;">
-                    <img class="card-img-top" src="{% static 'images/PortfolioImage2.png' %}" alt="Card image cap">
-                    <div class="card-body">
-                        <h3 class="card-title">Student Name</h3>
-                        <h6>Portfolio Title</h6>
-                        <p class="card-text">Text for portfolio Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-                        <a href="#" class="btn btn-primary">Link to portfolio</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-auto">
-                <div class="card" style="width: 18rem;">
-                    <img class="card-img-top" src="{% static 'images/PortfolioImage3.png' %}" alt="Card image cap">
-                    <div class="card-body">
-                        <h3 class="card-title">Student Name</h3>
-                        <h6>Portfolio Title</h6>
-                        <p class="card-text">Text for portfolio Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-                        <a href="#" class="btn btn-primary">Link to portfolio</a>
-                    </div>
-                </div>
-            </div>
+  <div class="d-flex justify-content-center">
+    <div class="row">
+      {% for portfolio in portfolios %}
+      <div class="col-auto">
+        <div class="card" style="width: 18rem;">
+          <img class="card-img-top" src="{% static 'images/PortfolioImage1.png' %}" alt="Card image cap">
+          <div class="card-body">
+            <h3 class="card-title">{{ portfolio.student.name }}</h3>
+            <h6>{{ portfolio.title }}</h6>
+            <p class="card-text">
+              {{ portfolio.about }}
+            </p>
+            <a href="{% url 'portfolio-detail' portfolio.id %}" class="btn btn-primary">
+              Link to portfolio
+            </a>
+          </div>
         </div>
+      </div>
+      {% endfor %}
     </div>
-
-
+  </div>
 </div>
-
-
-
 
 {% endblock %}
