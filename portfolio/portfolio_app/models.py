@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import ImageField
 from django.urls import reverse
 
 # Create your models here.
@@ -11,6 +12,7 @@ class Portfolio(models.Model):
     contact_email = models.EmailField(max_length=200)
     is_active = models.BooleanField(default=False)
     about = models.TextField(blank=True)
+    portfolio_image = ImageField(upload_to='portfolios/', blank=True, null=True)
 
     def __str__(self):
         return self.title
@@ -47,6 +49,7 @@ class Student(models.Model):
     Major = models.CharField(max_length=200, choices=MAJOR)
     portfolio = models.OneToOneField(Portfolio, on_delete=models.CASCADE)
 
+    student_image = models.ImageField(upload_to='students/', blank=True, null=True)
     # Fix the capital on Major next migration
 
     def __str__(self):

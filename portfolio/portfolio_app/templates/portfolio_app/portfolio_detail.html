@@ -5,6 +5,11 @@
 
 {% block content %}
     <h1>{{ portfolio.title }} by {{ portfolio.contact_email }}</h1>
+    <div>
+    {% if portfolio.student.student_image %}
+    <img class="img-fluid" style="max-width: 30%; height: auto;" src="{{ portfolio.student.student_image.url }}">
+    {% endif %}
+    </div>
     <p>
         Is active: {{portfolio.is_active }}
     </p>

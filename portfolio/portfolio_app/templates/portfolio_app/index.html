@@ -10,7 +10,9 @@
       {% for portfolio in portfolios %}
       <div class="col-auto">
         <div class="card" style="width: 18rem;">
-          <img class="card-img-top" src="{% static 'images/PortfolioImage1.png' %}" alt="Card image cap">
+          {% if portfolio.portfolio_image %}
+          <img class="card-img-top" src="{{ portfolio.portfolio_image.url }}" alt="Card image cap">
+          {% endif %}
           <div class="card-body">
             <h3 class="card-title">{{ portfolio.student.name }}</h3>
             <h6>{{ portfolio.title }}</h6>
