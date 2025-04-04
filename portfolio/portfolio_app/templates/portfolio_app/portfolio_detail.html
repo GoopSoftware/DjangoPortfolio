@@ -4,14 +4,34 @@
 {% block title %}{{ portfolio.title }}{% endblock %}
 
 {% block content %}
-    <h1>{{ portfolio.title }} by {{ portfolio.contact_email }}</h1>
+    <div class="container text-center">
+        <h1>{{ portfolio.contact_email }}</h1>
+    </div>
     <div>
     {% if portfolio.student.student_image %}
-    <img class="img-fluid" style="max-width: 30%; height: auto;" src="{{ portfolio.student.student_image.url }}">
+        <div class="container text-center">
+            <img class="img-fluid" style="max-width: 30%; height: auto;" src="{{ portfolio.student.student_image.url }}">
+        </div>
     {% endif %}
     </div>
     <p>
         Is active: {{portfolio.is_active }}
     </p>
     {{ portfolio.about }}
+    <div class="container text-center">
+        <h1>Projects</h1>
+    </div>
+    <div class="container text-center">
+        <a href="#" class="btn btn-primary">New (CREATE NEW FORM)</a>
+    </div>
+    {% for project in projects %}
+    <div class="container text-center">
+        <div class="card">
+            <h3>{{ forloop.counter }}. {{ project.title }}</h3>
+                <h4><a href="{% url 'project-detail' project.id %}" class="btn btn-primary">View</a> <a href="#" class="btn btn-primary">Update (ADD UPDATE FORM)</a> <a href="#" class="btn btn-primary">Delete(ADD DELETE FUNCTIONALITY)</a></h4>
+        </div>
+    </div>
+
+        <!---<p>{{ project.description }}</p>--->
+    {% endfor %}
 {% endblock %}

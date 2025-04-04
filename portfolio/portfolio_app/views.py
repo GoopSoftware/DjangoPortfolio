@@ -1,6 +1,6 @@
 from django.shortcuts import render,get_object_or_404
 from django.http import HttpResponse
-from .models import Portfolio, Student
+from .models import Portfolio, Student, Project
 
 # Create your views here.
 def index(request):
@@ -10,13 +10,52 @@ def index(request):
                   {'portfolios': portfolios})
 
 def student(request):
-    return render(request, 'portfolio_app/student.html')
+    student = Student.objects.all()
+    return render(request,
+                  'portfolio_app/student.html',
+                  {
+                      'students': student
+        }
+    )
+
+def student_detail(request, id):
+    student = get_object_or_404(Student, id=id)
+    portfolio = student.portfolio
+
+    return render(
+        request,
+        'portfolio_app/student_detail.html',
+        {
+            'student': student,
+            'portfolio': portfolio,
+            'projects': portfolio.projects.all()
+        }
+    )
 
 def projects(request):
-    return render(request, 'portfolio_app/projects.html')
+    projects = Project.objects.all()
+
+    return render(
+        request,
+        'portfolio_app/projects.html',
+        {
+            'projects': projects,
+        }
+    )
+
+def project_detail(request, id):
+    project = get_object_or_404(Project, id=id)
+
+    return render(
+        request,
+        'portfolio_app/project_detail.html',
+        {
+            'project': project
+        }
+
+    )
 
 def portfolio_detail(request, id):
-    #portfolio = get_object_or_404(Portfolio, id=id)
     student = get_object_or_404(Student, id=id)
     portfolio = student.portfolio
 

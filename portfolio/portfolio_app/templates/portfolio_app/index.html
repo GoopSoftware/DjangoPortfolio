@@ -17,7 +17,7 @@
             <h3 class="card-title">{{ portfolio.student.name }}</h3>
             <h6>{{ portfolio.title }}</h6>
             <p class="card-text">
-              {{ portfolio.about }}
+              {{ portfolio.about|truncatewords:25 }}
             </p>
             <a href="{% url 'portfolio-detail' portfolio.id %}" class="btn btn-primary">
               Link to portfolio

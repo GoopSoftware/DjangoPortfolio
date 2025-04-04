@@ -1,0 +1,13 @@
+{% extends "portfolio_app/base_template.html" %}
+
+
+{% block title %}{{ project.title }}{% endblock %}
+
+{% block content %}
+{{ project.description }}
+
+<h3>
+{{ project.portfolio }}
+</h3>
+
+{% endblock %}
