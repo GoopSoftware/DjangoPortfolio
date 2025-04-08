@@ -1,6 +1,7 @@
-from django.shortcuts import render,get_object_or_404
+from django.shortcuts import render,get_object_or_404, redirect
 from django.http import HttpResponse
 from .models import Portfolio, Student, Project
+from .forms import PortfolioForm, StudentForm
 
 # Create your views here.
 def index(request):
@@ -21,6 +22,7 @@ def student(request):
 def student_detail(request, id):
     student = get_object_or_404(Student, id=id)
     portfolio = student.portfolio
+
 
     return render(
         request,
