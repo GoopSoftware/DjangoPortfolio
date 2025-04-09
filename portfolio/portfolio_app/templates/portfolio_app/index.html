@@ -1,14 +1,33 @@
-<!-- inherit from base.html-->
 {% extends "portfolio_app/base_template.html" %}
+{% load static %}
 
-
-<!-- Replace block content in base_template.html -->
+{% block title %}Computer Science Portfolios{% endblock %}
 {% block content %}
-<h1>Computer Science Portfolios</h1>
 
-
-<h2>More to come from Jake</h2>
-
-<img src="static/images/MSU.jpg">
+<div class="container text-center">
+  <div class="d-flex justify-content-center">
+    <div class="row">
+      {% for portfolio in portfolios %}
+      <div class="col-auto">
+        <div class="card" style="width: 18rem;">
+          {% if portfolio.portfolio_image %}
+          <img class="card-img-top" src="{{ portfolio.portfolio_image.url }}" alt="Card image cap">
+          {% endif %}
+          <div class="card-body">
+            <h3 class="card-title">{{ portfolio.student.name }}</h3>
+            <h6>{{ portfolio.title }}</h6>
+            <p class="card-text">
+              {{ portfolio.about|truncatewords:25 }}
+            </p>
+            <a href="{% url 'portfolio-detail' portfolio.id %}" class="btn btn-primary">
+              Link to portfolio
+            </a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
 
 {% endblock %}

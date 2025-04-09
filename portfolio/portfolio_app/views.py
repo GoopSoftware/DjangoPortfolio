@@ -1,6 +1,86 @@
-from django.shortcuts import render
+from django.shortcuts import render,get_object_or_404, redirect
 from django.http import HttpResponse
+from .models import Portfolio, Student, Project
+from .forms import StudentForm
 
 # Create your views here.
 def index(request):
-    return render(request, 'portfolio_app/index.html')
+    portfolios = Portfolio.objects.all()
+    return render(request,
+                  'portfolio_app/index.html',
+                  {'portfolios': portfolios})
+
+def student(request):
+    student = Student.objects.all()
+    return render(request,
+                  'portfolio_app/student.html',
+                  {
+                      'students': student
+        }
+    )
+
+def student_detail(request, id):
+    student = get_object_or_404(Student, id=id)
+    portfolio = student.portfolio
+
+    return render(
+        request,
+        'portfolio_app/student_detail.html',
+        {
+            'student': student,
+            'portfolio': portfolio,
+            'projects': portfolio.projects.all()
+        }
+    )
+
+def create_student(request):
+    if request.method == 'POST':
+        form = StudentForm(request.POST, request.FILES)
+        if form.is_valid():
+            student = form.save()
+            return redirect(student.get_absolute_url())
+
+    else:
+        form = StudentForm()
+
+    return render(request,
+                  'portfolio_app/student_form.html',
+                  {'form': form})
+
+
+def projects(request):
+    projects = Project.objects.all()
+
+    return render(
+        request,
+        'portfolio_app/projects.html',
+        {
+            'projects': projects,
+        }
+    )
+
+def project_detail(request, id):
+    project = get_object_or_404(Project, id=id)
+
+    return render(
+        request,
+        'portfolio_app/project_detail.html',
+        {
+            'project': project
+        }
+
+    )
+
+def portfolio_detail(request, id):
+    student = get_object_or_404(Student, id=id)
+    portfolio = student.portfolio
+
+    return render(
+        request,
+        'portfolio_app/portfolio_detail.html',
+        {
+            'portfolio': portfolio,
+            'student': student,
+            'projects': portfolio.projects.all()
+        }
+    )

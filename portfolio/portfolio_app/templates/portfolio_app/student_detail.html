@@ -1,0 +1,22 @@
+{% extends "portfolio_app/base_template.html" %}
+
+{% block title %}Student name: {{ student.name }}{% endblock %}
+
+{% block content %}
+
+{% if student.portfolio %}
+<div>Email: {{ student.email }}</div>
+<div>Major: {{ student.Major }}</div>
+<div>
+<h7>Portfolio:</h7>
+    <a href="{% url 'portfolio-detail' portfolio.id %}">
+        {{ student.portfolio.title }}
+    </a>
+</div>
+<div>
+    <a href="{% url 'portfolio-detail' portfolio.id %}" class="btn btn-primary">
+        Update (CREATE UPDATE FORM)
+    </a>
+</div>
+{% endif %}
+{% endblock %}
