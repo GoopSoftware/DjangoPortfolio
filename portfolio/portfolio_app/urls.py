@@ -19,5 +19,8 @@ urlpatterns = [
         views.portfolio_detail,
         name='portfolio-detail'
     ),
+    path(
+        'student/create/', views.create_student, name='student-create'
+    )
 
 ]

@@ -1,11 +1,18 @@
 from django import forms
 from .models import Portfolio, Student
 
-
-class PortfolioForm(forms.ModelForm):
-    model = Portfolio
-    fields = ['title', 'contact_email', 'is_active', 'about', 'portfolio_image']
-
 class StudentForm(forms.ModelForm):
-    model = Student
-    fields = ['name', 'email', 'Major', 'student_image']
+    class Meta:
+        model = Student
+        fields = ['name', 'email', 'Major', 'student_image']
+
+    def save(self, commit=True):
+        student = super().save(commit=False)
+        portfolio = Portfolio.objects.create(
+            title=f"{student.name}'s Portfolio",
+            contact_email=student.email
+        )
+        student.portfolio = portfolio
+        if commit:
+            student.save()
+        return student

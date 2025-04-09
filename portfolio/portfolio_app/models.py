@@ -10,7 +10,7 @@ class Portfolio(models.Model):
 
     title = models.CharField(max_length=200)
     contact_email = models.EmailField(max_length=200)
-    is_active = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=True)
     about = models.TextField(blank=True)
     portfolio_image = ImageField(upload_to='portfolios/', blank=True, null=True)
 
